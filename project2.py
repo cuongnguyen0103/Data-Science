@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import gzip
 # from surprise import Reader, Dataset, SVD, SVDpp, NMF, SlopeOne, KNNBasic, KNNBaseline, KNNWithMeans, KNNWithZScore, CoClustering, BaselineOnly
-from surprise import KNNBasic
 from surprise.model_selection import cross_validate
 # import plotly.express as px
 # from gensim import corpora, models, similarities
