@@ -5,6 +5,8 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 import gzip
+from surprise import Reader, Dataset, SVD, SVDpp, NMF, SlopeOne, KNNBasic, KNNBaseline, KNNWithMeans, KNNWithZScore, CoClustering, BaselineOnly
+from surprise.model_selection import cross_validate
 # import plotly.express as px
 # from gensim import corpora, models, similarities
 # from underthesea import word_tokenize, pos_tag, sent_tokenize
