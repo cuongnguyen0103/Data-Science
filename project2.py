@@ -146,11 +146,11 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
     st.dataframe(data_info)
     # Load  model tfidf, index, dictionary
     with open('gensim_tfidf.pkl', 'rb') as f:
-        tfidf = pickle.load(file, encoding='latin1')
+        tfidf = pickle.load(f, encoding='latin1')
     with open('gensim_index.pkl', 'rb') as f:
-        index = pickle.load(file)
-    with open('gensim_dictionary.pkl', 'rb') as file:
-        dictionary = pickle.load(file)
+        index = pickle.load(f)
+    with open('gensim_dictionary.pkl', 'rb') as f:
+        dictionary = pickle.load(f)
 
     def preprocess_query(query):
         # Preprocess the search query to match the cleaning process of 'Content'
