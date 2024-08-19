@@ -145,9 +145,9 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
     data_info = pd.read_csv('data_info_wordtokenize.csv') 
     st.dataframe(data_info)
     # Load  model tfidf, index, dictionary
-    with open('gensim_tfidf.pkl', 'rb') as file:
+    with open('gensim_tfidf.pkl', 'rb') as f:
         tfidf = pickle.load(file, encoding='latin1')
-    with open('gensim_index.pkl', 'rb') as file:
+    with open('gensim_index.pkl', 'rb') as f:
         index = pickle.load(file)
     with open('gensim_dictionary.pkl', 'rb') as file:
         dictionary = pickle.load(file)
