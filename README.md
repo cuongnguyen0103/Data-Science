@@ -5,15 +5,15 @@
 - Tải bằng ứng dụng 'Github Destop'
 ### Dung lượng lớn
 - Nên nén thành file gzip để bới dung lương
-import gzip
-import pickle
+- import gzip
+- import pickle
 #### lưu
-with gzip.open('surprise.pkl.gz', 'wb') as f:
-    pickle.dump(algorithm, f)
+- with gzip.open('surprise.pkl.gz', 'wb') as f:
+    - pickle.dump(algorithm, f)
 #### đọc
-with gzip.open('surprise.pkl.gz', 'rb') as f:
-        algorithm = pickle.load(file)
-Sau đó tải lên bình thường (cái này nên dùng vì Github cho dung lượng có hạn, bị hết cần phải mua)
+- with gzip.open('surprise.pkl.gz', 'rb') as f:
+        - algorithm = pickle.load(file)
+- Sau đó tải lên bình thường (cái này nên dùng vì Github cho dung lượng có hạn, bị hết cần phải mua)
 - Nếu không được:
   + Tải git-lfs (hoặc Git: vì mình tải Git trước up ko được nên mình cài thêm git-lfs)
   + Đứng tại thư mục chúng ta bặt bược tạo khi cài 'Github Destop' để đây lên Github
