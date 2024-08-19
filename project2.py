@@ -9,7 +9,7 @@ import gzip
 # from surprise import Reader, Dataset, SVD, SVDpp, NMF, SlopeOne, KNNBasic, KNNBaseline, KNNWithMeans, KNNWithZScore, CoClustering, BaselineOnly
 # from surprise.model_selection import cross_validate
 # import plotly.express as px
-# from gensim import corpora, models, similarities
+from gensim import corpora, models, similarities
 from underthesea import word_tokenize, pos_tag, sent_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.metrics.pairwise import cosine_similarity
