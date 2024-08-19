@@ -43,7 +43,7 @@ elif choice == 'Giới thiệu':
     st.write("""##### Bạn đã có khách sạn cần đặt chưa ?""")
     st.write("""##### Nếu chưa bạn có thể xem các gợi ý ở phần Menu.""")
 elif choice == 'Tìm kiếm thông tin theo Hotel id':
-    st.subheader("Xem thông tin khách sạn theo mã Hotel_ID")
+    st.subheader("Xem thông tin khách sạn theo mã Hotel_ID (Cosin_similarity)")
 
     # # function cần thiết
     def get_recommendations(df, hotel_id, cosine_sim, nums=5):
