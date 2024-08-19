@@ -146,7 +146,7 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
     st.dataframe(data_info)
     # Load  model tfidf, index, dictionary
     with open('gensim_tfidf.pkl', 'rb') as file:
-        tfidf = pickle.load(file)
+        tfidf = pickle.load(file, encoding='latin1')
     with open('gensim_index.pkl', 'rb') as file:
         index = pickle.load(file)
     with open('gensim_dictionary.pkl', 'rb') as file:
