@@ -190,7 +190,7 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
         
         return similar_hotels
     # Example usage: 'Mường Thanh trung tâm hồ bơi gần biển'
-    st.write('#### Nhập ID của Khách sạn (Vd: Mường Thanh trung tâm hồ bơi gần biển, có ban công có hồ bơi, gần biển cảnh đẹp, phòng sạch đẹp sang trọng,...)')
+    st.write('#### Nhập thông tin mô tả (Vd: Mường Thanh trung tâm hồ bơi gần biển, có ban công có hồ bơi, gần biển cảnh đẹp, phòng sạch đẹp sang trọng,...)')
     query = str(st.text_input("Hãy nhập mô tả của bạn"))
     if query:
         similar_hotels_df = find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index)
@@ -254,7 +254,7 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Name':
     with gzip.open('surprise.pkl.gz', 'rb') as file:
         algorithm = pickle.load(file)
     
-    st.write('#### Nhập ID của Khách sạn (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
+    st.write('#### Nhập tên của Riviewer (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
     reviewer_name = st.text_input("Hãy nhập tên Riviewer")
     if reviewer_name:
         try:
