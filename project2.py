@@ -191,7 +191,7 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
         return similar_hotels
     # Example usage: 'Mường Thanh trung tâm hồ bơi gần biển'
     st.write('#### Nhập ID của Khách sạn (Vd: Mường Thanh trung tâm hồ bơi gần biển, có ban công có hồ bơi, gần biển cảnh đẹp, phòng sạch đẹp sang trọng,...)')
-    query = str(st.text_input("Nhập chuỗi tìm kiếm"))
+    query = str(st.text_input("Hãy nhập mô tả của bạn"))
     if query:
         similar_hotels_df = find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index)
         st.write('##### Đây là danh sách các khách sạn gần với mô tả của khách hàng') 
