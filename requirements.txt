@@ -6,5 +6,5 @@ seaborn
 scikit-learn
 scikit-surprise
 surprise
-gensim==4.0.1
+gensim==4.3.3
 underthesea
