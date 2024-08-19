@@ -1,10 +1,13 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import pickle
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 import gzip
+# from surprise import Reader, Dataset, SVD, SVDpp, NMF, SlopeOne, KNNBasic, KNNBaseline, KNNWithMeans, KNNWithZScore, CoClustering, BaselineOnly
+# from surprise.model_selection import cross_validate
 # import plotly.express as px
 # from gensim import corpora, models, similarities
 # from underthesea import word_tokenize, pos_tag, sent_tokenize
@@ -15,7 +18,7 @@ import gzip
 st.image('ttth.png',width=500)
 st.title("Đồ Án Tốt Nghiệp Môn Data Science")
 st.write("-"*60)
-menu = ["Đồ án", "Giới thiệu", "Tìm kiếm thông tin theo Hotel id", "Tìm kiếm thông tin theo Riviwer Id",
+menu = ["Đồ án", "Giới thiệu", "Tìm kiếm thông tin theo Hotel id", "Tìm kiếm thông tin theo mô tả", "Tìm kiếm thông tin theo Riviwer Id",
          "Tìm kiếm thông tin theo Riviwer Name", "Thống kê"]
 choice = st.sidebar.selectbox('Menu', menu)
 
@@ -136,6 +139,62 @@ elif choice == 'Tìm kiếm thông tin theo Hotel id':
             display_recommended_hotels(recommendations, cols=3)
         else:
             st.write(f"Không tìm thấy khách sạn với ID: {st.session_state.selected_hotel_id}")
+elif choice == 'Tìm kiếm thông tin theo mô tả':
+    st.subheader("Tìm kiếm thông tin theo mô tả (Gensim)")
+    # Đọc dữ liệu 'hotel_info_wordtokenize.csv' file hotel_info đã xử lý word tokenize
+    data_info = pd.read_csv('data_info_wordtokenize.csv') 
+    st.dataframe(data_info)
+    # Load  model tfidf, index, dictionary
+    with open('gensim_tfidf.pkl', 'rb') as file:
+        tfidf = pickle.load(file)
+    with open('gensim_index.pkl', 'rb') as file:
+        index = pickle.load(file)
+    with open('gensim_dictionary.pkl', 'rb') as file:
+        dictionary = pickle.load(file)
+
+    def preprocess_query(query):
+        # Preprocess the search query to match the cleaning process of 'Content'
+        query = query.lower()
+        query = re.sub(r'\d+', '', query)  # Remove numbers
+        words_to_remove = ["AM", "PM", "m²", "m2", "m", "meter", "meters", "kilometers", "kilometer", 
+                        "mile", "km", "min", "minutes", "minute", "hours", "hour", "h", "phút", 
+                        "giờ", "ph"]
+        query = re.sub(r'\b(?:' + '|'.join(re.escape(word) for word in words_to_remove) + r')\b', '', query)  # Remove special words
+        query = re.sub(r'[^\w\s]', ' ', query)  # Replace special characters with spaces
+        query = re.sub(r'\s+', ' ', query)  # Replace multiple spaces with a single space
+        query = query.strip()  # Remove leading and trailing spaces
+
+        # Tokenization (split into words) and stopword removal
+        tokens = word_tokenize(query, format="text")
+        tokens = tokens.split()   
+        return tokens
+    def find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index):
+        # Preprocess the search query
+        processed_query = preprocess_query(query)
+
+        # Convert the processed query into a list of words
+        query_bow = dictionary.doc2bow(processed_query)
+
+        # Convert the query BoW into a TF-IDF vector
+        query_tfidf = tfidf[query_bow]
+
+        # Calculate similarities with all hotels
+        sims = index[query_tfidf]
+        
+        # Get the top 5 most similar hotels
+        top_5_idx = sims.argsort()[-5:][::-1]  # Top 5 similar hotels
+        
+        # Create a DataFrame to display the results
+        similar_hotels = data_info.iloc[top_5_idx][['Hotel_ID', 'Hotel_Name', 'Hotel_Address', 'Hotel_Description']]
+        similar_hotels['Similarity'] = sims[top_5_idx]
+        
+        return similar_hotels
+    # Example usage: 'Mường Thanh trung tâm hồ bơi gần biển'
+    st.write('#### Nhập ID của Khách sạn (Vd: Mường Thanh trung tâm hồ bơi gần biển, có nước nóng, đồ ăn thuận tiện, sang trọng,...)')
+    query = str(st.text_input("Nhập chuỗi tìm kiếm"))
+    if query:
+        similar_hotels_df = find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index)
+        similar_hotels_df[similar_hotels_df['Similarity']>0]
 elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
     st.subheader("Tìm kiếm thông tin theo Riviwer Id (Surprise)")
     # Đọc dữ liệu 'hotel_info.csv'
