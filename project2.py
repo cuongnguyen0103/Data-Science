@@ -255,7 +255,7 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Name':
         algorithm = pickle.load(file)
     
     st.write('#### Nhập ID của Khách sạn (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
-    reviewer_name = st.text_input("Hãy nhập tên")
+    reviewer_name = st.text_input("Hãy nhập tên Riviewer")
     if reviewer_name:
         try:
             if reviewer_name in data_indexed['Reviewer Name'].to_list():
