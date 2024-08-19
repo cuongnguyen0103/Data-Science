@@ -194,7 +194,7 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
     query = str(st.text_input("Nhập chuỗi tìm kiếm"))
     if query:
         similar_hotels_df = find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index)
-        similar_hotels_df[similar_hotels_df['Similarity']>0]
+        similar_hotels_df[similar_hotels_df['Similarity']>0]['Hotel_ID', 'Hotel_Name', 'Hotel_Address', 'Similarity']
 elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
     st.subheader("Tìm kiếm thông tin theo Riviwer Id (Surprise)")
     # Đọc dữ liệu 'hotel_info.csv'
