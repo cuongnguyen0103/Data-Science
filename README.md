@@ -12,7 +12,7 @@
     - pickle.dump(algorithm, f)
 #### đọc
 - with gzip.open('surprise.pkl.gz', 'rb') as f:
-  - algorithm = pickle.load(file)
+  - <Tên biến> = pickle.load(f)
 - Sau đó tải lên bình thường (cái này nên dùng vì Github cho dung lượng có hạn, bị hết cần phải mua)
 - Nếu không được:
   + Tải git-lfs (hoặc Git: vì mình tải Git trước up ko được nên mình cài thêm git-lfs)
