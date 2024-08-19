@@ -140,7 +140,7 @@ elif choice == 'Tìm kiếm thông tin theo Hotel id':
         else:
             st.write(f"Không tìm thấy khách sạn với ID: {st.session_state.selected_hotel_id}")
 elif choice == 'Tìm kiếm thông tin theo mô tả':
-    st.subheader("Tìm kiếm thông tin theo mô tả (Gensim)")
+    st.subheader("Xem thông tin khách sạn theo mô tả (Gensim)")
     # Đọc dữ liệu 'hotel_info_wordtokenize.csv' file hotel_info đã xử lý word tokenize
     data_info = pd.read_csv('data_info_wordtokenize.csv') 
     st.dataframe(data_info)
@@ -198,7 +198,7 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
         similar_hotels_df[similar_hotels_df['Similarity']>0][['Hotel_ID', 'Hotel_Name', 'Hotel_Address', 'Similarity']]
 
 elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
-    st.subheader("Tìm kiếm thông tin theo Riviwer Id (Surprise)")
+    st.subheader("Xem thông tin khách sạn theo Riviwer Id (Surprise)")
     # Đọc dữ liệu 'hotel_info.csv'
     data_info = pd.read_csv('hotel_info.csv')
     # Đọc dữ liệu 'data_indexed.csv' đã xử lý tù file 'hotel_comments.csv'
@@ -237,7 +237,7 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
         except ValueError:
             st.write("Vui lòng nhập một số hợp lệ cho Reviewer ID")
 elif choice == 'Tìm kiếm thông tin theo Riviwer Name':
-    st.subheader("Tìm kiếm thông tin theo tên Reviewer Name (Surprise)")
+    st.subheader("Xem thông tin khách sạn theo tên Reviewer (Surprise)")
 
     # Đọc dữ liệu 'hotel_info.csv'
     data_info = pd.read_csv('hotel_info.csv')
