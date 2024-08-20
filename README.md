@@ -2,12 +2,9 @@
 ## tải và xóafile lên github
 ### Dung lượng nhỏ
 - Có thể tải trực tiếp từ github
-- Tải bằng ứng dụng 'Github Destop'
+- Tải bằng ứng dụng 'Github Destop' (xem youtube hướng dẫn sử dụng)
 ### Dung lượng lớn
 - Nên nén thành file gzip để bới dung lương
-### xóa
-- Khi xóa bạn nên xóa file trên thư mục cần tạo ra khi cài xong github Destop
-- rồi mở github Destop
 #### lưu
 - import gzip
 - import pickle
@@ -28,6 +25,9 @@
        + git add "surprise.pkl" (đây là tên file cần thêm, nếu nhiều file thì dùng nhiều lệnh)
        + git commit -m "initial commit"
        + git push origin main
+## xóa
+- Khi xóa bạn nên xóa file trên thư mục mà bạn tạo ra khi cài xong github Destop
+- rồi mở github Destop
 ## Lỗi pickle.load(file)
 - nếu bạn bị lỗi này có nghĩa là thư viện của file .pkl chưa được cài như 'surprise', 'gensim', 'underthesea'
 - khi mình tải file lên github không chạy được mình thử dùng cách này
