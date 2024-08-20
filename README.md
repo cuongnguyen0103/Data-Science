@@ -5,12 +5,12 @@
 - Tải bằng ứng dụng 'Github Destop'
 ### Dung lượng lớn
 - Nên nén thành file gzip để bới dung lương
-- import gzip
-- import pickle
 ### xóa
 - Khi xóa bạn nên xóa file trên thư mục cần tạo ra khi cài xong github Destop
 - rồi mở github Destop
 #### lưu
+- import gzip
+- import pickle
 - with gzip.open('surprise.pkl.gz', 'wb') as f:
     - pickle.dump(algorithm, f)
 #### đọc
