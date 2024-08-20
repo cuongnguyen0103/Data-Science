@@ -245,7 +245,7 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Name':
     # st.dataframe(data_info)
     # Đọc dữ liệu 'data_indexed.csv' đã xử lý tù file 'hotel_comments.csv'
     data_indexed = pd.read_csv('data_indexed.csv')
-    st.write('#### Bảng thông tin Id của khách sạng và Reviewer')
+    st.write('#### Bảng thông tin Id của khách sạn và Reviewer')
     data_indexed_15=data_indexed.head(15)
     st.dataframe(data_indexed_15)
 
