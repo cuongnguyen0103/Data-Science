@@ -9,9 +9,9 @@ import gzip
 # from surprise import Reader, Dataset, SVD, SVDpp, NMF, SlopeOne, KNNBasic, KNNBaseline, KNNWithMeans, KNNWithZScore, CoClustering, BaselineOnly
 # from surprise.model_selection import cross_validate
 # import plotly.express as px
-# from gensim import corpora, models, similarities
-# from underthesea import word_tokenize, pos_tag, sent_tokenize
-# from sklearn.feature_extraction.text import TfidfVectorizer
+from gensim import corpora, models, similarities
+from underthesea import word_tokenize, pos_tag, sent_tokenize
+from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.metrics.pairwise import cosine_similarity
 
 # GUI
@@ -43,7 +43,7 @@ elif choice == 'Giới thiệu':
     st.write("""##### Bạn đã có khách sạn cần đặt chưa ?""")
     st.write("""##### Nếu chưa bạn có thể xem các gợi ý ở phần Menu.""")
 elif choice == 'Tìm kiếm thông tin theo Hotel id':
-    st.subheader("Xem thông tin khách sạn theo mã Hotel_ID")
+    st.subheader("Xem thông tin khách sạn theo mã Hotel_ID (Cosin_similarity)")
 
     # # function cần thiết
     def get_recommendations(df, hotel_id, cosine_sim, nums=5):
@@ -140,17 +140,17 @@ elif choice == 'Tìm kiếm thông tin theo Hotel id':
         else:
             st.write(f"Không tìm thấy khách sạn với ID: {st.session_state.selected_hotel_id}")
 elif choice == 'Tìm kiếm thông tin theo mô tả':
-    st.subheader("Tìm kiếm thông tin theo mô tả (Gensim)")
+    st.subheader("Xem thông tin khách sạn theo mô tả (Gensim)")
     # Đọc dữ liệu 'hotel_info_wordtokenize.csv' file hotel_info đã xử lý word tokenize
     data_info = pd.read_csv('data_info_wordtokenize.csv') 
     st.dataframe(data_info)
     # Load  model tfidf, index, dictionary
-    with open('gensim_tfidf.pkl', 'rb') as file:
-        tfidf = pickle.load(file)
-    with open('gensim_index.pkl', 'rb') as file:
-        index = pickle.load(file)
-    with open('gensim_dictionary.pkl', 'rb') as file:
-        dictionary = pickle.load(file)
+    with open('gensim_tfidf.pkl', 'rb') as f:
+        tfidf = pickle.load(f, encoding='latin1')
+    with open('gensim_index.pkl', 'rb') as f:
+        index = pickle.load(f)
+    with open('gensim_dictionary.pkl', 'rb') as f:
+        dictionary = pickle.load(f)
 
     def preprocess_query(query):
         # Preprocess the search query to match the cleaning process of 'Content'
@@ -190,13 +190,15 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
         
         return similar_hotels
     # Example usage: 'Mường Thanh trung tâm hồ bơi gần biển'
-    st.write('#### Nhập ID của Khách sạn (Vd: Mường Thanh trung tâm hồ bơi gần biển, có nước nóng, đồ ăn thuận tiện, sang trọng,...)')
-    query = str(st.text_input("Nhập chuỗi tìm kiếm"))
+    st.write('#### Nhập thông tin mô tả (Vd: Mường Thanh trung tâm hồ bơi gần biển, có ban công có hồ bơi, gần biển cảnh đẹp, phòng sạch đẹp sang trọng,...)')
+    query = str(st.text_input("Hãy nhập mô tả của bạn"))
     if query:
         similar_hotels_df = find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index)
-        similar_hotels_df[similar_hotels_df['Similarity']>0]
+        st.write('##### Đây là danh sách các khách sạn gần với mô tả của khách hàng') 
+        similar_hotels_df = similar_hotels_df[similar_hotels_df['Similarity']>0][['Hotel_ID', 'Hotel_Name', 'Hotel_Description']]
+        st.table(similar_hotels_df) 
 elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
-    st.subheader("Tìm kiếm thông tin theo Riviwer Id (Surprise)")
+    st.subheader("Xem thông tin khách sạn theo Riviwer Id (Surprise)")
     # Đọc dữ liệu 'hotel_info.csv'
     data_info = pd.read_csv('hotel_info.csv')
     # Đọc dữ liệu 'data_indexed.csv' đã xử lý tù file 'hotel_comments.csv'
@@ -235,7 +237,7 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
         except ValueError:
             st.write("Vui lòng nhập một số hợp lệ cho Reviewer ID")
 elif choice == 'Tìm kiếm thông tin theo Riviwer Name':
-    st.subheader("Tìm kiếm thông tin theo tên Reviewer Name (Surprise)")
+    st.subheader("Xem thông tin khách sạn theo tên Reviewer (Surprise)")
 
     # Đọc dữ liệu 'hotel_info.csv'
     data_info = pd.read_csv('hotel_info.csv')
@@ -252,8 +254,8 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Name':
     with gzip.open('surprise.pkl.gz', 'rb') as file:
         algorithm = pickle.load(file)
     
-    st.write('#### Nhập ID của Khách sạn (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
-    reviewer_name = st.text_input("Hãy nhập tên")
+    st.write('#### Nhập tên của Riviewer (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
+    reviewer_name = st.text_input("Hãy nhập tên Riviewer")
     if reviewer_name:
         try:
             if reviewer_name in data_indexed['Reviewer Name'].to_list():
