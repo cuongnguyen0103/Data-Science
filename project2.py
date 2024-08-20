@@ -218,7 +218,7 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Id':
     if Reviewer_id:
         try:
             Reviewer_id = int(Reviewer_id)
-            if Reviewer_id in data_indexed['Reviewer_id'].to_list():
+            if Reviewer_id in data_indexed['Reviewer_id'].to_list() and Reviewer_id>1:
                 # st.write("Reviewer id is", Reviewer_id)
                 df_score = data_indexed[["Hotel_id", "Hotel ID"]]
                 df_score['EstimateScore'] = df_score['Hotel_id'].apply(lambda x: algorithm.predict(Reviewer_id, x).est) # est: get EstimateScore
@@ -233,7 +233,8 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Id':
                 if Reviewer_id:
                     st.table(df_recommendations)
             else:
-                st.write("Tên không tồn tại")
+                st.write("Số Id không tồn tại")
+                st.write("Bạn nhập trong khoảng từ 1 đến",str(data_indexed['Reviewer_id'].max()))     
         except ValueError:
             st.write("Vui lòng nhập một số hợp lệ cho Reviewer ID")
 elif choice == 'Tìm kiếm thông tin theo Reviewer Name':
