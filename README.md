@@ -12,7 +12,7 @@
 - import gzip
 - import pickle
 - with gzip.open('surprise.pkl.gz', 'wb') as f:
-    - pickle.dump(algorithm, f)
+    - pickle.dump(<file_can_luu>, f)
 #### đọc
 - with gzip.open('surprise.pkl.gz', 'rb') as f:
   - <Tên biến> = pickle.load(f)
