@@ -203,7 +203,7 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Id':
     data_info = pd.read_csv('hotel_info.csv')
     # Đọc dữ liệu 'data_indexed.csv' đã xử lý tù file 'hotel_comments.csv'
     data_indexed = pd.read_csv('data_indexed.csv')
-    st.write('#### Bảng thông tin khách sạn và riviewer')
+    st.write('#### Bảng thông tin khách sạn và reviewer')
     data_indexed_15=data_indexed.head(15)
     st.dataframe(data_indexed_15)
 
@@ -229,7 +229,7 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Id':
                 df_recommendations = pd.merge(df_score, data_info, left_on='Hotel ID', right_on='Hotel_ID', how='left')
                 df_recommendations = df_recommendations.dropna(subset=['Hotel_Name'])
                 df_recommendations = df_recommendations[['Hotel ID','EstimateScore','Hotel_Name','Hotel_Address']].head(10)
-                st.write('##### Đây là danh sách các khách sạn có điểm ước lượng cao của khách hàng có Riviewer id:',str(Reviewer_id))
+                st.write('##### Đây là danh sách các khách sạn có điểm ước lượng cao của khách hàng có Reviewer id:',str(Reviewer_id))
                 if Reviewer_id:
                     st.table(df_recommendations)
             else:
@@ -244,7 +244,7 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Name':
     # st.dataframe(data_info)
     # Đọc dữ liệu 'data_indexed.csv' đã xử lý tù file 'hotel_comments.csv'
     data_indexed = pd.read_csv('data_indexed.csv')
-    st.write('#### Bảng thông tin Id của khách sạng và Riviewer')
+    st.write('#### Bảng thông tin Id của khách sạng và Reviewer')
     data_indexed_15=data_indexed.head(15)
     st.dataframe(data_indexed_15)
 
@@ -254,8 +254,8 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Name':
     with gzip.open('surprise.pkl.gz', 'rb') as file:
         algorithm = pickle.load(file)
     
-    st.write('#### Nhập tên của Riviewer (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
-    reviewer_name = st.text_input("Hãy nhập tên Riviewer")
+    st.write('#### Nhập tên của Reviewer (Vd: MARIKO_1, Dang_1, Dang_2, Dieu_1, Minh_2,...)')
+    reviewer_name = st.text_input("Hãy nhập tên Reviewer")
     if reviewer_name:
         try:
             if reviewer_name in data_indexed['Reviewer Name'].to_list():
@@ -270,7 +270,7 @@ elif choice == 'Tìm kiếm thông tin theo Reviewer Name':
                 df_recommendations = pd.merge(df_score, data_info, left_on='Hotel ID', right_on='Hotel_ID', how='left')
                 df_recommendations = df_recommendations.dropna(subset=['Hotel_Name'])
                 df_recommendations = df_recommendations[['Hotel ID','Reviewer Name','EstimateScore','Hotel_Name','Hotel_Address']]
-                st.write('##### Đây là danh sách các khách sạn có điểm ước lượng cao của khách hàng có Riviewer Name:',reviewer_name)
+                st.write('##### Đây là danh sách các khách sạn có điểm ước lượng cao của khách hàng có Reviewer Name:',reviewer_name)
                 if reviewer_name:
                     st.table(df_recommendations)
 
