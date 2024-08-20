@@ -1,5 +1,5 @@
 # Data-Science
-## tải file lên github
+## tải và xóafile lên github
 ### Dung lượng nhỏ
 - Có thể tải trực tiếp từ github
 - Tải bằng ứng dụng 'Github Destop'
@@ -7,6 +7,9 @@
 - Nên nén thành file gzip để bới dung lương
 - import gzip
 - import pickle
+### xóa
+- Khi xóa bạn nên xóa file trên thư mục cần tạo ra khi cài xong github Destop
+- rồi mở github Destop
 #### lưu
 - with gzip.open('surprise.pkl.gz', 'wb') as f:
     - pickle.dump(algorithm, f)
