@@ -195,7 +195,7 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
     if query:
         similar_hotels_df = find_similar_hotels_from_query(query, data_info, dictionary, tfidf, index)
         st.write('##### Đây là danh sách các khách sạn gần với mô tả của khách hàng') 
-        similar_hotels_df = similar_hotels_df[similar_hotels_df['Similarity']>0][['Hotel_ID', 'Hotel_Name', 'Hotel_Address', 'Similarity']]
+        similar_hotels_df = similar_hotels_df[similar_hotels_df['Similarity']>0][['Hotel_ID', 'Hotel_Name', 'Hotel_Description']]
         st.table(similar_hotels_df) 
 elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
     st.subheader("Xem thông tin khách sạn theo Riviwer Id (Surprise)")
