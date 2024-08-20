@@ -18,8 +18,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 st.image('ttth.png',width=500)
 st.title("Đồ Án Tốt Nghiệp Môn Data Science")
 st.write("-"*60)
-menu = ["Đồ án", "Giới thiệu", "Tìm kiếm thông tin theo Hotel id", "Tìm kiếm thông tin theo mô tả", "Tìm kiếm thông tin theo Riviwer Id",
-         "Tìm kiếm thông tin theo Riviwer Name", "Thống kê"]
+menu = ["Đồ án", "Giới thiệu", "Tìm kiếm thông tin theo Hotel id", "Tìm kiếm thông tin theo mô tả", "Tìm kiếm thông tin theo Reviewer Id",
+         "Tìm kiếm thông tin theo Reviewer Name", "Thống kê"]
 choice = st.sidebar.selectbox('Menu', menu)
 
 if choice == 'Đồ án':
@@ -197,8 +197,8 @@ elif choice == 'Tìm kiếm thông tin theo mô tả':
         st.write('##### Đây là danh sách các khách sạn gần với mô tả của khách hàng') 
         similar_hotels_df = similar_hotels_df[similar_hotels_df['Similarity']>0][['Hotel_ID', 'Hotel_Name', 'Hotel_Description']]
         st.table(similar_hotels_df) 
-elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
-    st.subheader("Xem thông tin khách sạn theo Riviwer Id (Surprise)")
+elif choice == 'Tìm kiếm thông tin theo Reviewer Id':
+    st.subheader("Xem thông tin khách sạn theo Reviewer Id (Surprise)")
     # Đọc dữ liệu 'hotel_info.csv'
     data_info = pd.read_csv('hotel_info.csv')
     # Đọc dữ liệu 'data_indexed.csv' đã xử lý tù file 'hotel_comments.csv'
@@ -212,8 +212,8 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
     #     algorithm = pickle.load(file)
     with gzip.open('surprise.pkl.gz', 'rb') as file:
         algorithm = pickle.load(file)
-    st.write('#### Nhập ID của Khách sạn (Vd: 1, 30, 550, 1735,...)')
-    Reviewer_id = st.text_input("Hãy nhập Id khách sạn")
+    st.write('#### Nhập ID của Reviewer (Vd: 1, 30, 550, 1735,...)')
+    Reviewer_id = st.text_input("Hãy nhập Id của Reviewer")
     # Reviewer_id = int(Reviewer_id)
     if Reviewer_id:
         try:
@@ -236,7 +236,7 @@ elif choice == 'Tìm kiếm thông tin theo Riviwer Id':
                 st.write("Tên không tồn tại")
         except ValueError:
             st.write("Vui lòng nhập một số hợp lệ cho Reviewer ID")
-elif choice == 'Tìm kiếm thông tin theo Riviwer Name':
+elif choice == 'Tìm kiếm thông tin theo Reviewer Name':
     st.subheader("Xem thông tin khách sạn theo tên Reviewer (Surprise)")
 
     # Đọc dữ liệu 'hotel_info.csv'
